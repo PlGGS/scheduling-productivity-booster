@@ -6,12 +6,6 @@ import 'firebase/storage'
 import 'firebase/analytics'
 import 'firebase/performance'
 
-
-
-
-
-
-
 NEXT_PUBLIC_FIREBASE_API_KEY= "AIzaSyAgU3aTPfCRS90VJaPuSwnQKBaDzRabtKk"
 NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN= "schedulingpb.firebaseapp.com"
 NEXT_PUBLIC_FIREBASE_DATABASE_URL= "https://schedulingpb-default-rtdb.firebaseio.com"
@@ -24,7 +18,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID= "1:797935234997:web:e689cd1ea9b1d11d8133fc"
 //FIREBASE_CLIENT_EMAIL=
 //FIREBASE_PRIVATE_KEY=
 
-
+// Your web app's Firebase configuration
 const clientCredentials = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -35,9 +29,7 @@ const clientCredentials = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 }
 
-
-
-export default function initFirebase() {
+export default function init() {
     if (!firebase.apps.length) {
         firebase.initializeApp(clientCredentials)
         // Check that `window` is in scope for the analytics module!
@@ -63,15 +55,8 @@ import { getAnalytics } from "firebase/analytics";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-
-// Your web app's Firebase configuration
-
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-
-
 // Initialize Firebase
+const app = initializeApp(clientCredentials);
 
-const app = initializeApp(firebaseConfig);
-
+//Blake: Do we need the line below?
 const analytics = getAnalytics(app);
