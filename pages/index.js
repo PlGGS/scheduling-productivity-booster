@@ -20,7 +20,7 @@ class Index extends React.Component {
           </h1>
           <br />
           <p className={styles.description}>
-            By: Saiyed Irfanullah, Isaiah Antonio, Kuiper Poznyak, Nathan Santiago, David Shargorodsky, Blake Boris{' '}
+            By: Saiyed Irfanullah, Isaiah Antonio, Kuiper Poznyak, Ming Zhang, David Shargorodsky, Blake Boris{' '}
             <br />
             <br />
             <code className={styles.code}>Team 2</code>
