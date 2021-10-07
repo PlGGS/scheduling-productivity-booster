@@ -27,8 +27,7 @@ class Index extends React.Component {
           </p>
 
           <p>hello</p>
-          <Collection/>
-          <p>world</p>
+          <Collection name="user" />
         </main>
         <Footer />
       </div>
