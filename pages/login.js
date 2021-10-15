@@ -9,50 +9,57 @@ import { useRouter } from 'next/router'
 import { app, db, auth, provider } from '../services/firebase.js'
 import { signInWithPopup, signOut } from "firebase/auth";
 
-const Login = ({ user }) => {
+const Login = () => {
+  const router = useRouter();
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const loginLogout = async function () {
+    //Google Authentication implemented for Login
+    const handleLogin = () => {
+      signInWithPopup(auth, provider);
+    };
+
+    //LogOut
+    const handleLogout = () => {
+      signOut(auth).then(() => {
+        console.log("signed out");
+        setLoggedIn(false);
+      })
+    };
+
+    //Saving the username after sucessfull login
+    useEffect(() => {
+      auth.onAuthStateChanged((user) => {
+        if (user !== null) {
+          console.log("signed in");
+          setLoggedIn(true);
+        }
+      });
+    }, []);
+
+    return (
+      <div className="LoginLogout">
+        <button onClick={handleLogin}>Login</button>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    );
+  }
+
+  loginLogout().then((res)=>{
+    // console.log(res);
+    // setRes(res);
+    router.push('./dashboard')
+  });
+
   return (
     <div className={styles.container}>
-      <LoginLogout />
+
       {/* <h1>Hello, {user}</h1> */}
     </div>
   )
 }
 
 
-function LoginLogout() {
-  const router = useRouter();
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  //Google Authentication implemented for Login
-  const handleLogin = () => {
-    signInWithPopup(auth, provider);
-  };
-
-  //LogOut
-  const handleLogout = () => {
-    signOut(auth).then(() => {
-      console.log("signed out");
-      setLoggedIn(false);
-    })
-  };
-
-  //Saving the username after sucessfull login
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user !== null) {
-        console.log("signed in");
-        setLoggedIn(true);
-      }
-    });
-  }, []);
-
-  return (
-    <div className="App">
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={handleLogout}>Logout</button>
-      {loggedIn && router.push('./dashboard')}
-    </div>
-  );
-}
 
 export default Login;
