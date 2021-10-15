@@ -3,7 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Footer from '../components/footer.js'
 import Collection from '../components/firebase/collection'
-import App from '../components/firebase/app'
+import Link from 'next/link'
 
 class Index extends React.Component {
   render() {
@@ -26,7 +26,7 @@ class Index extends React.Component {
             <br />
           </p>
 
-          <App/>
+          <Link href="/login" under='true'>Go to login</Link>
         </main>
         <Footer />
       </div>
