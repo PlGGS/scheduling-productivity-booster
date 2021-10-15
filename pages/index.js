@@ -3,6 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Footer from '../components/footer.js'
 import Collection from '../components/firebase/collection'
+import App from '../components/firebase/app'
 
 class Index extends React.Component {
   render() {
@@ -23,11 +24,9 @@ class Index extends React.Component {
             By: Saiyed Irfanullah, Isaiah Antonio, Kuiper Poznyak, Ming Zhang, David Shargorodsky, Blake Boris{' '}
             <br />
             <br />
-            <code className={styles.code}>Team 2</code>
           </p>
 
-          <p>hello</p>
-          <Collection name="user" />
+          <App/>
         </main>
         <Footer />
       </div>
