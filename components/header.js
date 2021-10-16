@@ -9,8 +9,10 @@ const Header = (props) => (
             <div id="home">
                 <ul>
                     <li><motion.div style={{ 'paddingLeft': '6px' }} whileHover={{ scale: 1.05 }}><Link href="/"><b>SPB</b></Link></motion.div></li>
-                    <li id="page" style={{ 'paddingLeft': '10px', 'paddingRight': '20px', 'fontSize': '24px', 'color': '#333' }}>||</li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/" under='true'>Home</Link></motion.div></li>
+                    <li style={{ 'paddingLeft': '10px', 'paddingRight': '20px', 'fontSize': '24px', 'color': '#333' }}>||</li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/dashboard" under='true'>Dashboard</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/examplepage1" under='true'>ExamplePage1</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/examplepage2" under='true'>ExamplePage2</Link></motion.div></li>
                 </ul>
             </div>
         </div>
