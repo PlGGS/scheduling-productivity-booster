@@ -9,11 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.1.15",
     "firebase": "^9.1.1",
     "firebase-tools": "^9.19.0",
+    "framer-motion": "^4.1.17",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-fontawesome": "^1.7.1"
   },
   "devDependencies": {
     "eslint": "7.32.0",
