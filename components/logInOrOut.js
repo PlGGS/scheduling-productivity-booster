@@ -13,7 +13,7 @@ const LogInOrOut = (props) => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user !== null) {
-        setUser(", " + user.displayName);
+        setUser("Hello, " + user.displayName);
         setButtonText("Logout")
       }
     });
@@ -22,13 +22,15 @@ const LogInOrOut = (props) => {
   //Google Authentication implemented for Login
   const handleLoginLogout = () => {
     if (buttonText == "Login") {
-      signInWithPopup(auth, provider);
-      console.log("signed in");
+      signInWithPopup(auth, provider).then((res) => {
+        console.log("signed in");
+        router.push('./dashboard')
+      });
     }
     else {
       signOut(auth).then(() => {
-        router.reload(window.location.pathname)
         console.log("signed out");
+        router.push('/')
       });
     }
   };
@@ -39,7 +41,7 @@ const LogInOrOut = (props) => {
         <tbody>
           <tr>
             <td>
-              <p id="username">Hello{user} </p>
+              <p id="username">{user} </p>
             </td>
             <td>
               <button id="button" onClick={handleLoginLogout}>{buttonText}</button>
