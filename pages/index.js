@@ -26,7 +26,7 @@ class Index extends React.Component {
             <br />
           </p>
 
-          <Link href="/login" under='true'>Go to login</Link>
+          <Link href="/login" under='true'>Login</Link>
         </main>
         <Footer />
       </div>
