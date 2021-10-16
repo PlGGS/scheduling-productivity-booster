@@ -8,15 +8,14 @@ const Header = (props) => (
         <div id="resources">
             <div id="home">
                 <ul>
-                    <li><motion.div style={{ 'paddingLeft': '10px' }} initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.05 }}><Link href="/"><b>SPB</b></Link></motion.div></li>
-                    <li>||</li>
+                    <li><motion.div style={{ 'paddingLeft': '6px' }} whileHover={{ scale: 1.05 }}><Link href="/"><b>SPB</b></Link></motion.div></li>
+                    <li id="page" style={{ 'paddingLeft': '10px', 'paddingRight': '20px', 'fontSize': '24px', 'color': '#333' }}>||</li>
                     <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/" under='true'>Home</Link></motion.div></li>
                 </ul>
             </div>
         </div>
         <div id="pages">
             <ul>
-                
                 <li id="menu">
                     <Menu href='/menu'>
                         <motion.div
@@ -54,7 +53,6 @@ const Header = (props) => (
             }
             #pages {
                 margin: 0 auto;
-                
             }
             #button {
                 display:none;
@@ -65,11 +63,8 @@ const Header = (props) => (
             #resources home ul li {
               font-size: 24px,
               color: #333,
-              margin-right: 10
             }
             #login table tbody tr td {
-                padding-top: 5px;
-                
                 margin: 0 auto;
                 color: #333;
             }
@@ -130,14 +125,15 @@ function Link({ children, href, under }) {
     const router = useRouter();
     const style = {
         marginRight: 10,
-        'textDecoration': under ? router.pathname === href ? 'underline' : 'none' : 'none',
+        'textDecoration': under ? router.pathname === href ? 'underline' : 'none' : 'none', //underline current page
         'fontSize': '24px',
         color: '#333'
     }
 
     const handleClick = (e) => {
         e.preventDefault()
-        router.push(href)
+        if (href !== null)
+            router.push(href)
     }
 
     return (

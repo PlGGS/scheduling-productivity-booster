@@ -10,7 +10,6 @@ class Index extends React.Component {
     return (
       <Layout>
       <div className={styles.container}>
-        
         <main className={styles.main}>
           <h1 className={styles.title}>
             Scheduling Productivity Booster
@@ -21,8 +20,6 @@ class Index extends React.Component {
             <br />
             <br />
           </p>
-
-          
         </main>
       </div>
       </Layout>

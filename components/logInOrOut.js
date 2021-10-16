@@ -41,7 +41,8 @@ const LogInOrOut = (props) => {
         <tbody>
           <tr>
             <td>
-              <p id="username">{user} </p>
+              {/* &nbsp; necessary to lower login button */}
+              <p id="username">&nbsp;{user}</p> 
             </td>
             <td>
               <button id="button" onClick={handleLoginLogout}>{buttonText}</button>
