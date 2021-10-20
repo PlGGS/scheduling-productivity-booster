@@ -1,17 +1,141 @@
-import { React } from 'react'
-import styles from '../styles/Home.module.css'
-import Layout from '../components/layout'
+import React, { useEffect, useRef, useState } from "react";
+import "firebase/firestore";
+import "firebase/auth";
+import "firebase/analytics";
+import {
+  doc,
+  addDoc,
+  collection,
+  onSnapshot,
+  Timestamp,
+} from "firebase/firestore";
+import { signInWithPopup } from "firebase/auth";
+import { auth, db, provider } from "../services/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
-const Dashboard = () => {
+function Dashboard() {
+  const [user] = useAuthState(auth);
 
   return (
-    <Layout>
-      <div className={styles.container}>
-        <h1>This is temporary content on the main section of the dashboard</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div className="App">
+      <header>
+        <h1>⚛️🔥💬</h1>
+        <SignOut />
+      </header>
+
+      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+    </div>
+  );
+}
+
+function SignIn() {
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider);
+  };
+
+  return (
+    <>
+      <button className="sign-in" onClick={signInWithGoogle}>
+        Sign in with Google
+      </button>
+      <p>
+        Do not violate the community guidelines or you will be banned for life!
+      </p>
+    </>
+  );
+}
+
+function SignOut() {
+  return (
+    auth.currentUser && (
+      <button className="sign-out" onClick={() => auth.signOut()}>
+        Sign Out
+      </button>
+    )
+  );
+}
+
+function ChatRoom() {
+  const dummy = useRef();
+  // const messagesRef = firestore.collection('messages');
+  // const query = messagesRef.orderBy('createdAt').limit(25);
+  const [messages, setMessages] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "messages"), (snapshot) => {
+        const userMessages = [];
+        snapshot.forEach((doc) => {
+          userMessages.push(doc.data());
+        });
+        setMessages(userMessages);
+      }),
+    []
+  );
+  // onSnapshot(collection(db, "messages"), (snapshot) => {
+  //   setMessages(JSON.stringify(snapshot.docs.map(doc => ({...doc.data(), id: doc.id}))));
+  // });
+  const [formValue, setFormValue] = useState("");
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    const { uid, photoURL } = auth.currentUser;
+
+    await addDoc(collection(db, "messages"), {
+      text: formValue,
+      createdAt: Timestamp.now(),
+      uid,
+      photoURL,
+    });
+
+    setFormValue("");
+    dummy.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  return (
+    <>
+      <main>
+        {messages &&
+          messages.map((msg, i) => <ChatMessage key={i} message={msg} />)}
+        {console.log(messages)}
+
+        <span ref={dummy}></span>
+      </main>
+
+      <form onSubmit={sendMessage}>
+        <input
+          value={formValue}
+          onChange={(e) => setFormValue(e.target.value)}
+          placeholder="say something nice"
+        />
+
+        <button type="submit" disabled={!formValue}>
+          🕊️
+        </button>
+      </form>
+    </>
+  );
+}
+
+function ChatMessage(props) {
+  const { text, uid, photoURL } = props.message;
+
+  const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
+
+  return (
+    <>
+      <div className={`message ${messageClass}`}>
+        <img
+          src={
+            photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
+          }
+          alt="profile"
+        />
+        <p>{text}</p>
       </div>
-    </Layout>
-  )
+    </>
+  );
 }
 
 export default Dashboard;
