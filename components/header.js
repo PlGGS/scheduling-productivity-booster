@@ -11,8 +11,9 @@ const Header = (props) => (
                     <li><motion.div style={{ 'paddingLeft': '6px' }} whileHover={{ scale: 1.05 }}><Link href="/"><b>SPB</b></Link></motion.div></li>
                     <li style={{ 'paddingLeft': '10px', 'paddingRight': '20px', 'fontSize': '24px', 'color': '#333' }}>||</li>
                     <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/dashboard" under='true'>Dashboard</Link></motion.div></li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/examplepage1" under='true'>ExamplePage1</Link></motion.div></li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/examplepage2" under='true'>ExamplePage2</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/peerFeedback" under='true'>Peer Feedback</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/help" under='true'>Help</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/contact" under='true'>Contact</Link></motion.div></li>
                 </ul>
             </div>
         </div>
@@ -47,7 +48,7 @@ const Header = (props) => (
         {props.children}
         <style jsx>{`
             #bar {
-                padding: 20px;
+                padding: 30px;
                 padding-bottom: 5px;
                 background: #fff;
                 list-style: none;
@@ -61,10 +62,11 @@ const Header = (props) => (
             }
             #resources {
             }
-
-            #resources home ul li {
-              font-size: 24px,
-              color: #333,
+            #resources #home ul li {
+              font-size: 24px;
+              color: #333;
+              padding-left: 10px;
+              padding-right: 10px;
             }
             #login table tbody tr td {
                 margin: 0 auto;
