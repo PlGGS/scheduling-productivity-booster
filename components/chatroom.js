@@ -2,8 +2,60 @@ import React, { useEffect, useRef, useState } from "react";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/analytics";
-import { addDoc, collection, onSnapshot, Timestamp } from "firebase/firestore";
-import { auth, db } from "../services/firebase";
+import {
+  doc,
+  addDoc,
+  collection,
+  onSnapshot,
+  Timestamp,
+} from "firebase/firestore";
+import { signInWithPopup } from "firebase/auth";
+import { auth, db, provider } from "../services/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+
+function Chatroom() {
+  const [user] = useAuthState(auth);
+
+  return (
+    <div className="App">
+      <header>
+        <h1>⚛️🔥💬</h1>
+        <SignOut />
+      </header>
+
+      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+      
+    </div>
+  );
+}
+
+function SignIn() {
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider);
+  };
+
+  return (
+    <>
+      <button className="sign-in" onClick={signInWithGoogle}>
+        Sign in with Google
+      </button>
+      <p>
+        Do not violate the community guidelines or you will be banned for life!
+      </p>
+    </>
+  );
+}
+
+function SignOut() {
+  return (
+    auth.currentUser && (
+      <button className="sign-out" onClick={() => auth.signOut()}>
+        Sign Out
+      </button>
+    )
+  );
+}
 
 function ChatRoom() {
   const dummy = useRef();
@@ -44,32 +96,30 @@ function ChatRoom() {
   };
 
   return (
-    <div>
+    <>
       <div style={{"height": "300px", "overflow-y": "scroll"}}>
-        <h1>⚛️🔥💬</h1>
         <main>
           {messages &&
-            messages.map((msg, i) => <ChatMessage key={i} message={msg} />)}
+            //chat order fixed. > sooner on the bottom, < sooner on the top      
+            messages.sort((a,b) => a.createdAt > b.createdAt ? 1 : -1).map((msg, i) => <ChatMessage key={i} message={msg} />)}
           {console.log(messages)}
 
           <span ref={dummy}></span>
         </main>
 
-        
-      </div>
-      <form onSubmit={sendMessage}>
-      <input
-        className="chatInput"
-        value={formValue}
-        onChange={(e) => setFormValue(e.target.value)}
-        placeholder="say something nice"
-      />
-      <button className="chatButton" type="submit" disabled={!formValue}>
-        ⬆️
-      </button>
-
-    </form>
-    <style jsx>{`
+        </div>
+        <form onSubmit={sendMessage}>
+          <input
+            className="chatInput"
+            value={formValue}
+            onChange={(e) => setFormValue(e.target.value)}
+            placeholder="say something nice"
+          />
+          <button className="chatButton" type="submit" disabled={!formValue}>
+            ⬆️
+          </button>
+        </form>
+        <style jsx>{`
         .chatInput {
           height:40px;
           font-size: 20pt;
@@ -78,7 +128,7 @@ function ChatRoom() {
           font-size: 20pt;
         }
       `}</style>
-  </div>
+    </>
   );
 }
 
@@ -102,4 +152,4 @@ function ChatMessage(props) {
   );
 }
 
-export default ChatRoom;
+export default Chatroom;
