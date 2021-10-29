@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { motion } from "framer-motion";
 import LogInOrOut from '../components/logInOrOut';
+import Link from './link';
 
 const Header = (props) => (
     <div id="bar">
@@ -10,10 +11,10 @@ const Header = (props) => (
                 <ul>
                     <li><motion.div style={{ 'paddingLeft': '6px' }} whileHover={{ scale: 1.05 }}><Link href="/"><b>SPB</b></Link></motion.div></li>
                     <li style={{ 'paddingLeft': '10px', 'paddingRight': '20px', 'fontSize': '24px', 'color': '#333' }}>||</li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/dashboard" under='true'>Dashboard</Link></motion.div></li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/peerFeedback" under='true'>Peer Feedback</Link></motion.div></li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/help" under='true'>Help</Link></motion.div></li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/contact" under='true'>Contact</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/dashboard" underline='true'>Dashboard</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/peerFeedback" underline='true'>Peer Feedback</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/help" underline='true'>Help</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/contact" underline='true'>Contact</Link></motion.div></li>
                 </ul>
             </div>
         </div>
@@ -124,28 +125,6 @@ const Header = (props) => (
         `}</style>
     </div>
 );
-
-function Link({ children, href, under }) {
-    const router = useRouter();
-    const style = {
-        marginRight: 10,
-        'textDecoration': under ? router.pathname === href ? 'underline' : 'none' : 'none', //underline current page
-        'fontSize': '24px',
-        color: '#333'
-    }
-
-    const handleClick = (e) => {
-        e.preventDefault()
-        if (href !== null)
-            router.push(href)
-    }
-
-    return (
-        <a href={href} onClick={handleClick} style={style}>
-            {children}
-        </a>
-    )
-}
 
 function Menu({ children, href }) {
     const router = useRouter();
