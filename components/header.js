@@ -12,7 +12,7 @@ const Header = (props) => (
                     <li><motion.div style={{ 'paddingLeft': '6px' }} whileHover={{ scale: 1.05 }}><Link href="/"><b>SPB</b></Link></motion.div></li>
                     <li style={{ 'paddingLeft': '10px', 'paddingRight': '20px', 'fontSize': '24px', 'color': '#333' }}>||</li>
                     <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/dashboard" underline='true'>Dashboard</Link></motion.div></li>
-                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/peerFeedback" underline='true'>Peer Feedback</Link></motion.div></li>
+                    <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/peerFeedback" underline='true'>Feedback</Link></motion.div></li>
                     <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/help" underline='true'>Help</Link></motion.div></li>
                     <li id="page"><motion.div initial={{ scale: [1.02, 1] }} whileHover={{ scale: 1.02 }}><Link href="/contact" underline='true'>Contact</Link></motion.div></li>
                 </ul>

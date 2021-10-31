@@ -9,15 +9,16 @@ import { ObjectCollection } from './firebase/objectCollection';
 import { onSnapshot, collection } from '@firebase/firestore';
 import { db } from '../services/firebase';
 
-function GroupList() {
-  const [workgroups, setWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
+function UserList(props) {
+  const [users, setUsers] = useState([{ name: "Loading...", id: "initial" }]);
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
 
+  //TODO make this only pull from props.workgroup
   useEffect(
     () =>
-      onSnapshot(collection(db, "workgroup"), (snapshot) =>
-        setWorkgroups(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      onSnapshot(collection(db, "user"), (snapshot) =>
+      setUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       ),
     []
   );
@@ -26,26 +27,16 @@ function GroupList() {
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
         <div className='navbar'>
-          <Link href='/dashboard' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-        </div>
-        <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' onClick={showSidebar}>
-            <li className='navbar-toggle'>
-              <Link href='/dashboard' className='menu-bars'>
-                <AiIcons.AiOutlineClose />
-              </Link>
-            </li>
-            {workgroups.map((item, index) => {
+            {users.map((item, index) => {
               return (
                 <li key={index} className={'text-' + index}>
-                  <span>{item.name}</span>
+                  <span>{item.firstname}</span>
                 </li>
               );
             })}
           </ul>
-        </nav>
+        </div>
       </IconContext.Provider>
       <style jsx>{`
             .navbar {
@@ -127,4 +118,4 @@ function GroupList() {
   );
 }  
 
-export default GroupList;
+export default UserList;

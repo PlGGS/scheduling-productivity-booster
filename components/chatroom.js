@@ -14,7 +14,7 @@ import { auth, db, provider } from "../services/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-function Chatroom() {
+function ChatRoom() {
   const [user] = useAuthState(auth);
 
   return (
@@ -23,9 +23,7 @@ function Chatroom() {
         <h1>⚛️🔥💬</h1>
         <SignOut />
       </header>
-
-      <section>{user ? <ChatRoom /> : <SignIn />}</section>
-      
+      <section>{user ? <Chat /> : <SignIn />}</section>
     </div>
   );
 }
@@ -57,7 +55,7 @@ function SignOut() {
   );
 }
 
-function ChatRoom() {
+function Chat() {
   const dummy = useRef();
   // const messagesRef = firestore.collection('messages');
   // const query = messagesRef.orderBy('createdAt').limit(25);
@@ -109,23 +107,30 @@ function ChatRoom() {
 
         </div>
         <form onSubmit={sendMessage}>
-          <input
-            className="chatInput"
-            value={formValue}
-            onChange={(e) => setFormValue(e.target.value)}
-            placeholder="say something nice"
-          />
-          <button className="chatButton" type="submit" disabled={!formValue}>
-            ⬆️
-          </button>
+          <div className="chat">
+            <input
+              className="chatInput"
+              value={formValue}
+              onChange={(e) => setFormValue(e.target.value)}
+              placeholder="say something nice"
+            />
+            <button className="chatButton" type="submit" disabled={!formValue}>
+              ⬆️
+            </button>
+          </div>
         </form>
         <style jsx>{`
+        .chat {
+          font-size: 12pt;
+        }
         .chatInput {
-          height:40px;
-          font-size: 20pt;
+          height: 30px;
+          width: 100%;
         }
         .chatButton {
-          font-size: 20pt;
+          height: 30px;
+          position: fixed;
+          transform: translate(-35px, 0px);
         }
       `}</style>
     </>
@@ -152,4 +157,4 @@ function ChatMessage(props) {
   );
 }
 
-export default Chatroom;
+export default ChatRoom;
