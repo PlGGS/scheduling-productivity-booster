@@ -19,8 +19,19 @@ import GroupLayout from "../components/groupLayout";
 import GroupList from "../components/groupList";
 
 const Dashboard = (props) => {
+  const [selectedWorkgroup, setSelectedWorkgroup] = useState("");
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "workgroup"), (snapshot) =>
+      setSelectedWorkgroup(snapshot.docs[0].name)
+      ),
+    []
+  );
+
   return (
     <Layout>
+      <span>{selectedWorkgroup}</span>
       <GroupList />
       <GroupLayout />
     </Layout>

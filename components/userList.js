@@ -1,6 +1,6 @@
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import Link from './link';
@@ -11,10 +11,8 @@ import { db } from '../services/firebase';
 
 function UserList(props) {
   const [users, setUsers] = useState([{ name: "Loading...", id: "initial" }]);
-  const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
 
-  //TODO make this only pull from props.workgroup
+  //TODO make this only pull from the currently selected workgroup
   useEffect(
     () =>
       onSnapshot(collection(db, "user"), (snapshot) =>
@@ -27,7 +25,7 @@ function UserList(props) {
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
         <div className='navbar'>
-          <ul className='nav-menu-items' onClick={showSidebar}>
+          <ul className='nav-menu-items'>
             {users.map((item, index) => {
               return (
                 <li key={index} className={'text-' + index}>

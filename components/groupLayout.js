@@ -25,11 +25,14 @@ function GroupLayout() {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4} md={4}>
-            <UserList />
+            <span>View availability for:</span>
+            <CheckList coll="user" field="firstname" shouldCrossOut={false} />
           </Grid>
           <Grid item xs={12} sm={4} md={4}>
             <Calendar />
-            <CheckList />
+            <span>To-do:</span>
+            {/* The checklist below currently pulls from workgroup collection until I can figure out how to pull from a workgroup's checklist collection */}
+            <CheckList coll="workgroup" field="name" shouldCrossOut={true} />
           </Grid>
           <Grid item xs={12} sm={4} md={4}>
             <span>This will be buttons</span>

@@ -19,39 +19,8 @@ function Chatroom() {
 
   return (
     <div className="App">
-      <header>
-        <h1>⚛️🔥💬</h1>
-        <SignOut />
-      </header>
-      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+      <section>{user ? <ChatRoom /> : <span>Login for chat</span>}</section>
     </div>
-  );
-}
-
-function SignIn() {
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, provider);
-  };
-
-  return (
-    <>
-      <button className="sign-in" onClick={signInWithGoogle}>
-        Sign in with Google
-      </button>
-      <p>
-        Do not violate the community guidelines or you will be banned for life!
-      </p>
-    </>
-  );
-}
-
-function SignOut() {
-  return (
-    auth.currentUser && (
-      <button className="sign-out" onClick={() => auth.signOut()}>
-        Sign Out
-      </button>
-    )
   );
 }
 
