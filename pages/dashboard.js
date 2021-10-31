@@ -15,7 +15,6 @@ import { auth, db, provider } from "../services/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import Layout from "../components/layout";
-import ChatRoom from "../components/chatRoom";
 import GroupLayout from "../components/groupLayout";
 import GroupList from "../components/groupList";
 
