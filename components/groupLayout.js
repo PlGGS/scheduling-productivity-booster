@@ -14,7 +14,7 @@ import { auth, db, provider } from "../services/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Calendar from './Calendar';
 import CheckList from './checkList';
-import ChatRoom from './chatRoom';
+import Chatroom from './chatroom';
 import UserList from './userList';
 
 function GroupLayout() {
@@ -33,7 +33,7 @@ function GroupLayout() {
           </Grid>
           <Grid item xs={12} sm={4} md={4}>
             <span>This will be buttons</span>
-            <ChatRoom />
+            <Chatroom />
           </Grid>
         </Grid>
       </Container>

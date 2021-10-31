@@ -14,7 +14,7 @@ import { auth, db, provider } from "../services/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
-function ChatRoom() {
+function Chatroom() {
   const [user] = useAuthState(auth);
 
   return (
@@ -23,7 +23,7 @@ function ChatRoom() {
         <h1>⚛️🔥💬</h1>
         <SignOut />
       </header>
-      <section>{user ? <Chat /> : <SignIn />}</section>
+      <section>{user ? <ChatRoom /> : <SignIn />}</section>
     </div>
   );
 }
@@ -55,7 +55,7 @@ function SignOut() {
   );
 }
 
-function Chat() {
+function ChatRoom() {
   const dummy = useRef();
   // const messagesRef = firestore.collection('messages');
   // const query = messagesRef.orderBy('createdAt').limit(25);
@@ -157,4 +157,4 @@ function ChatMessage(props) {
   );
 }
 
-export default ChatRoom;
+export default Chatroom;
