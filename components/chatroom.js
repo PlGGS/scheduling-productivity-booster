@@ -69,7 +69,7 @@ function ChatRoom() {
           {messages &&
             //chat order fixed. > sooner on the bottom, < sooner on the top      
             messages.sort((a,b) => a.createdAt > b.createdAt ? 1 : -1).map((msg, i) => <ChatMessage key={i} message={msg} />)}
-          {console.log(messages)}
+          {/* {console.log(messages)} */}
 
           <span ref={dummy}></span>
         </main>

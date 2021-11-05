@@ -9,17 +9,16 @@ import { ObjectCollection } from './firebase/objectCollection';
 import { onSnapshot, collection } from '@firebase/firestore';
 import { db } from '../services/firebase';
 
-function GroupList() {
+function GroupList({...props}) {
   const [workgroups, setWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
-
+  
   useEffect(
-    () =>
+    () => 
       onSnapshot(collection(db, "workgroup"), (snapshot) =>
-        setWorkgroups(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      ),
-    []
+        setWorkgroups(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
+      ), []
   );
 
   return (
@@ -40,7 +39,9 @@ function GroupList() {
             {workgroups.map((item, index) => {
               return (
                 <li key={index} className={'text-' + index}>
-                  <span>{item.name}</span>
+                  <Link href='/dashboard' className='menu-item' >
+                    <span onClick={() => props.updateWorkgroup(item.name)}>{item.name === props.workgroup ? <b>{item.name}</b> : item.name}</span>
+                  </Link>
                 </li>
               );
             })}

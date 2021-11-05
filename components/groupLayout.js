@@ -19,15 +19,28 @@ import UserList from './userList';
 import GroupList from "../components/groupList";
 
 function GroupLayout() {
-  const [user] = useAuthState(auth);
+  const [selectedWorkgroup, setSelectedWorkgroup] = useState("");
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, "workgroup"), (snapshot) =>
+      setSelectedWorkgroup(snapshot.docs[0].data().name)
+      ),
+    []
+  );
+  
+  function updateSelectedWorkgroup(name) {
+    setSelectedWorkgroup(name)
+    console.log(`hello, ${selectedWorkgroup}`);
+  }
 
   return (
     <>
       <Container padding={false} maxWidth={false}>
         <Grid container spacing={3} xs={12}>
           <Grid item xs={16} sm={4} md={4}>
-            <GroupList />
-            <span>View availability for:</span>
+            <GroupList updateWorkgroup={updateSelectedWorkgroup} workgroup={selectedWorkgroup}/>
+            <span>View availability for: {selectedWorkgroup}</span>
             <CheckList coll="user" field="firstname" shouldCrossOut={false} />
           </Grid>
           <Grid item xs={12} sm={4} md={4}>
@@ -43,33 +56,6 @@ function GroupLayout() {
         </Grid>
       </Container>
     </>
-  );
-}
-
-function SignIn() {
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, provider);
-  };
-
-  return (
-    <>
-      <button className="sign-in" onClick={signInWithGoogle}>
-        Sign in with Google
-      </button>
-      <p>
-        Do not violate the community guidelines or you will be banned for life!
-      </p>
-    </>
-  );
-}
-
-function SignOut() {
-  return (
-    auth.currentUser && (
-      <button className="sign-out" onClick={() => auth.signOut()}>
-        Sign Out
-      </button>
-    )
   );
 }
 
