@@ -177,8 +177,7 @@ class Calendar extends Component {
                         <label>{constants.CALENDAR_INTERVAL_LENGTH}</label>
                         <Select defaultValue={this.state.slotStep}
                                 onChange={(value) => this.handleIntervalLength(value)}
-                                style={{width: "220px", paddingBottom: '10px'}}
-                                defaultValue="15 mins">
+                                style={{width: "220px", paddingBottom: '10px'}}>
                             <Option value="1">15 mins </Option>
                             <Option value="2">30 mins</Option>
                             <Option value="3">45 mins</Option>
