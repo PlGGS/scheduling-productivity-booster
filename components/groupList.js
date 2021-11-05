@@ -10,17 +10,9 @@ import { onSnapshot, collection } from '@firebase/firestore';
 import { db } from '../services/firebase';
 
 function GroupList({...props}) {
-  const [workgroups, setWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
   
-  useEffect(
-    () => 
-      onSnapshot(collection(db, "workgroup"), (snapshot) =>
-        setWorkgroups(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))),
-      ), []
-  );
-
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
@@ -36,11 +28,11 @@ function GroupList({...props}) {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {workgroups.map((item, index) => {
+            {props.workgroups.map((item, index) => {
               return (
                 <li key={index} className={'text-' + index}>
                   <Link href='/dashboard' className='menu-item' >
-                    <span onClick={() => props.updateWorkgroup(item.name)}>{item.name === props.workgroup ? <b>{item.name}</b> : item.name}</span>
+                    <span onClick={() => props.setWorkgroup(item.name)}>{item.name === props.workgroup ? <b>{item.name}</b> : item.name}</span>
                   </Link>
                 </li>
               );
