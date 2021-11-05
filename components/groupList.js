@@ -113,10 +113,11 @@ function GroupList() {
             .navbar-toggle {
               background-color: #fff;
               width: 100%;
-              height: 80px;
+              height: 42px;
               display: flex;
               justify-content: start;
               align-items: center;
+              transform: translate(-19px);
             }
             
             span {

@@ -16,7 +16,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import Layout from "../components/layout";
 import GroupLayout from "../components/groupLayout";
-import GroupList from "../components/groupList";
 
 const Dashboard = (props) => {
   const [selectedWorkgroup, setSelectedWorkgroup] = useState("");
@@ -32,7 +31,7 @@ const Dashboard = (props) => {
   return (
     <Layout>
       <span>{selectedWorkgroup}</span>
-      <GroupList />
+      
       <GroupLayout />
     </Layout>
   );

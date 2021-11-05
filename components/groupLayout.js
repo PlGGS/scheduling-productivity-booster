@@ -16,15 +16,17 @@ import Calendar from './Calendar';
 import CheckList from './checkList';
 import Chatroom from './chatroom';
 import UserList from './userList';
+import GroupList from "../components/groupList";
 
 function GroupLayout() {
   const [user] = useAuthState(auth);
 
   return (
     <>
-      <Container>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={4} md={4}>
+      <Container padding={false} maxWidth={false}>
+        <Grid container spacing={3} xs={12}>
+          <Grid item xs={16} sm={4} md={4}>
+            <GroupList />
             <span>View availability for:</span>
             <CheckList coll="user" field="firstname" shouldCrossOut={false} />
           </Grid>
