@@ -32,7 +32,7 @@ function GridItem(props) {
     // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
     // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
     <Grid item xs={16} sm={8} md={4}>
-      <Paper className={classes.paper}>
+      <Paper className={useStyles().paper}>
         {props.children}
       </Paper>
     </Grid>
@@ -40,8 +40,6 @@ function GridItem(props) {
 }
 
 function GroupLayout() {
-  const classes = useStyles();
-
   const [allWorkgroups, setAllWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
   const [userWorkgroups, setUserWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
   const [allUsers, setAllUsers] = useState([{ name: "Loading...", id: "initial" }]);
@@ -92,14 +90,14 @@ function GroupLayout() {
     <>
       <Grid container className="groupLayoutContainer" padding={false} maxWidth={true}>
         <Grid item xs={12} sm={2} md={2}>
-          <Paper className={classes.paper}>
+          <Paper  >
             <GroupList setWorkgroup={setUserSelectedWorkgroup} workgroup={userSelectedWorkgroup} workgroups={allWorkgroups}/>
             <span>View availability for: {userSelectedWorkgroup}</span>
             <CheckList coll="user" field="firstname" checkAll={true} shouldCrossOut={false} />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={10} md={8}>
-          <Paper className={classes.paper}>
+          <Paper className={useStyles().paper}>
             <div className="row calendarContainer">
               <Calendar />
             </div>
@@ -109,7 +107,7 @@ function GroupLayout() {
           </Paper>
         </Grid>
         <Grid item xs={12} sm={12} md={2}>
-          <Paper className={classes.paper}>
+          <Paper className={useStyles().paper}>
             <button className="newGroupBtn">New Group</button>
             <button className="newGroupBtn">Join Group</button>
             <Chatroom />
