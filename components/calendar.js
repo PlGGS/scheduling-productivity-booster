@@ -3,7 +3,7 @@ import moment from 'moment';
 import NoSSR from 'react-no-ssr';
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop';
-import uuid from 'uuid';
+import uuid from 'uuidv4';
 import {Select} from "antd";
 
 import 'react-big-calendar/lib/css/react-big-calendar.css';

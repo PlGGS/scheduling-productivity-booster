@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Icon} from 'antd';
+import {CloseCircleOutlined} from '@ant-design/icons';
 
 class EventTitle extends Component{
     constructor(props) {
@@ -20,7 +20,7 @@ class EventTitle extends Component{
         return (
             <div>
                 <div style={{ position: "absolute", top: "-1%", right: "1%", height: "10px", width: "10px" }}>
-                    <Icon style={{height: "20px", align: "right"}} type="close-circle" onClick={() => {event.onClick(event.eventId)}}/>
+                    <CloseCircleOutlined style={{height: "20px", align: "right"}} onClick={() => {event.onClick(event.eventId)}} />
                 </div>
                 <span style={{ fontSize: '14px' }}>{ event.slotAvailable ? 'new event added' : 'unavailable' }</span>
             </div>
