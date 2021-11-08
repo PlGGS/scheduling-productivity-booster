@@ -90,7 +90,7 @@ function GroupLayout() {
 
   return (
     <>
-      <Grid container className="groupLayoutContainer" padding={false} maxWidth={false}>
+      <Grid container className="groupLayoutContainer" padding={false} maxWidth={true}>
         <Grid item xs={12} sm={2} md={2}>
           <Paper className={classes.paper}>
             <GroupList setWorkgroup={setUserSelectedWorkgroup} workgroup={userSelectedWorkgroup} workgroups={allWorkgroups}/>
