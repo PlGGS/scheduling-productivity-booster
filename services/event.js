@@ -8,10 +8,10 @@ class Event {
     static getEvents() {
         const events = [
             {
-                id: 1,
-                title: 'Discussion for new projects',
-                start: moment().add(1, 'day').hours(1).minutes(15).toDate(),
-                end: moment().add(1, 'day').hours(3).minutes(45).toDate(),
+                id: 0,
+                title: 'Team meeting on Zoom',
+                start: moment().add(0, 'day').hours(8).minutes(15).toDate(),
+                end: moment().add(0, 'day').hours(10).minutes(45).toDate(),
                 oldEvent: true,
                 slotAvailable: true
             },

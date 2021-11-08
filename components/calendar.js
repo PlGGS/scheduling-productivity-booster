@@ -184,7 +184,7 @@ class Calendar extends Component {
       <NoSSR>
         <div className="row classes.calendar">
           <React.Fragment>
-            <div style={{ paddingTop: "10px" }}>
+            {/* <div style={{ paddingTop: "10px" }}>
               <label>{constants.CALENDAR_INTERVAL_LENGTH}</label>
               <Select
                 defaultValue={this.state.slotStep}
@@ -196,7 +196,7 @@ class Calendar extends Component {
                 <Option value="3">45 mins</Option>
                 <Option value="4">60 mins</Option>
               </Select>
-            </div>
+            </div> */}
             <DragAndDropCalendar
               selectable
               resizable
@@ -205,7 +205,7 @@ class Calendar extends Component {
               timeslots={4}
               localizer={localize}
               defaultView="week"
-              views={["week"]}
+              views={["week", "day", "month"]}
               defaultDate={moment().toDate()}
               onEventDrop={this.moveEvent}
               onEventResize={this.resizeEvent}
