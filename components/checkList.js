@@ -2,11 +2,12 @@ import { React, useEffect, useState } from 'react';
 import { onSnapshot, collection } from '@firebase/firestore';
 import { db } from '../services/firebase';
 
-function CheckList({coll, field, shouldCrossOut}) {
+function CheckList({coll, field, checkAll, shouldCrossOut}) {
   const [items, setItems] = useState([{ id: "initial" }]);
   const [checked, setChecked] = useState([]);
 
   if (shouldCrossOut !== true) shouldCrossOut = false;
+  if (checkAll !== true) checkAll = false;
 
   // Add/Remove checked item from list
   const handleCheck = (event) => {
@@ -36,7 +37,7 @@ function CheckList({coll, field, shouldCrossOut}) {
         <div className="list-container">
           {items.map((item, index) => (
             <div className="list-item" key={index}>
-              <input value={item[field]} type="checkbox" onChange={handleCheck} />
+              <input value={item[field]} type="checkbox" defaultChecked={checkAll} onChange={handleCheck} />
               <span className={shouldCrossOut ? isChecked(item[field]) : "unchecked-item"}>{item[field]}</span>
             </div>
           ))}

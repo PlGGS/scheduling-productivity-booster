@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function GridItem(props) {
-  const classes = useStyles();
 
   return (
     // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
@@ -41,6 +40,8 @@ function GridItem(props) {
 }
 
 function GroupLayout() {
+  const classes = useStyles();
+
   const [allWorkgroups, setAllWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
   const [userWorkgroups, setUserWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
   const [allUsers, setAllUsers] = useState([{ name: "Loading...", id: "initial" }]);
@@ -89,27 +90,31 @@ function GroupLayout() {
 
   return (
     <>
-      <Container className="groupLayoutContainer" padding={false} maxWidth={false}>
-        <Grid container spacing={1} md={24}>
-          <GridItem >
+      <Grid container className="groupLayoutContainer" padding={false} maxWidth={false}>
+        <Grid item xs={12} sm={2} md={2}>
+          <Paper className={classes.paper}>
             <GroupList setWorkgroup={setUserSelectedWorkgroup} workgroup={userSelectedWorkgroup} workgroups={allWorkgroups}/>
             <span>View availability for: {userSelectedWorkgroup}</span>
-            <CheckList coll="user" field="firstname" shouldCrossOut={false} />
-          </GridItem>
-          <GridItem className="calendarGrid" xs={12} sm={1} md={1} style={{flexGrow: "1"}}>
+            <CheckList coll="user" field="firstname" checkAll={true} shouldCrossOut={false} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={10} md={8}>
+          <Paper className={classes.paper}>
             <div className="row calendarContainer">
               <Calendar />
             </div>
             <span>To-do:</span>
             {/* The checklist below currently pulls from workgroup collection until I can figure out how to pull from a workgroup's checklist collection */}
             <CheckList coll="workgroup" field="name" shouldCrossOut={true} />
-          </GridItem>
-          <GridItem>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={12} md={2}>
+          <Paper className={classes.paper}>
             <span>This will be buttons</span>
             <Chatroom />
-          </GridItem>
+          </Paper>
         </Grid>
-      </Container>
+      </Grid>
       <style jsx>{`
       .groupLayoutContainer {
         height: 100%;
@@ -122,7 +127,7 @@ function GroupLayout() {
       }
       .calendarContainer {
         overflow: scroll;
-        height: 70vh;
+        height: 69vh;
       }
       `}</style>
     </>
