@@ -64,42 +64,52 @@ function ChatRoom() {
 
   return (
     <>
-      <div style={{"height": "300px", "overflow-y": "scroll"}}>
+      <div style={{ height: "72.2vh", "overflow-y": "scroll" }}>
         <main>
           {messages &&
-            //chat order fixed. > sooner on the bottom, < sooner on the top      
-            messages.sort((a,b) => a.createdAt > b.createdAt ? 1 : -1).map((msg, i) => <ChatMessage key={i} message={msg} />)}
-          {/* {console.log(messages)} */}
-
+            //chat order fixed. > sooner on the bottom, < sooner on the top
+            messages
+              .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
+              .map((msg, i) => <ChatMessage key={i} message={msg} />)}
           <span ref={dummy}></span>
         </main>
-
+      </div>
+      <form onSubmit={sendMessage}>
+        <div className="chat">
+          <table>
+            <tr>
+              <td>
+                <input
+                  className="chatInput"
+                  value={formValue}
+                  onChange={(e) => setFormValue(e.target.value)}
+                  placeholder="say something nice"
+                />
+              </td>
+              <td>
+                <button
+                  className="chatButton"
+                  type="submit"
+                  disabled={!formValue}
+                >
+                  ⬆️
+                </button>
+              </td>
+            </tr>
+          </table>
         </div>
-        <form onSubmit={sendMessage}>
-          <div className="chat">
-            <input
-              className="chatInput"
-              value={formValue}
-              onChange={(e) => setFormValue(e.target.value)}
-              placeholder="say something nice"
-            />
-            <button className="chatButton" type="submit" disabled={!formValue}>
-              ⬆️
-            </button>
-          </div>
-        </form>
-        <style jsx>{`
+      </form>
+      <style jsx>{`
         .chat {
           font-size: 12pt;
         }
         .chatInput {
           height: 30px;
-          width: 100%;
+          width: 160%;
         }
         .chatButton {
           height: 30px;
-          position: fixed;
-          transform: translate(-35px, 0px);
+          transform: translate(90px, 0px);
         }
       `}</style>
     </>
@@ -113,15 +123,30 @@ function ChatMessage(props) {
 
   return (
     <>
-      <div className={`message ${messageClass}`}>
-        <img
-          src={
-            photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
-          }
-          alt="profile"
-        />
-        <p>{text}</p>
-      </div>
+      <table>
+        <tr>
+          <td>
+            <div className={`message ${messageClass}`}>
+              <img
+                src={
+                  photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
+                }
+                alt="profile"
+              />
+              
+            </div>
+          </td>
+          <td>
+            <p>{text}</p>
+          </td>
+        </tr>
+      </table>
+      <style jsx>{`
+        .message img {
+          width: 50px;
+          border-radius: 50%;
+        }
+      `}</style>
     </>
   );
 }

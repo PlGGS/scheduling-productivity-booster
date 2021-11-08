@@ -110,7 +110,8 @@ function GroupLayout() {
         </Grid>
         <Grid item xs={12} sm={12} md={2}>
           <Paper className={classes.paper}>
-            <span>This will be buttons</span>
+            <button className="newGroupBtn">New Group</button>
+            <button className="newGroupBtn">Join Group</button>
             <Chatroom />
           </Paper>
         </Grid>
@@ -121,6 +122,9 @@ function GroupLayout() {
       }
 
 
+      .newGroupBtn {
+        width: 100%;
+      }
 
       .calendarGrid {
         overflow: clip;
