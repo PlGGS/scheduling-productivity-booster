@@ -4,6 +4,7 @@ import { React, useEffect, useState } from 'react';
 import { Container, Row, Col } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+import { makeStyles } from "@material-ui/core/styles";
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import Link from './link';
@@ -17,6 +18,27 @@ import CheckList from './checkList';
 import Chatroom from './chatroom';
 import UserList from './userList';
 import GroupList from "../components/groupList";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: theme.spacing(1),
+  }
+}));
+
+function GridItem(props) {
+  const classes = useStyles();
+
+  return (
+    // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
+    // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
+    // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
+    <Grid item xs={16} sm={8} md={4}>
+      <Paper className={classes.paper}>
+        {props.children}
+      </Paper>
+    </Grid>
+  );
+}
 
 function GroupLayout() {
   const [allWorkgroups, setAllWorkgroups] = useState([{ name: "Loading...", id: "initial" }]);
@@ -67,25 +89,42 @@ function GroupLayout() {
 
   return (
     <>
-      <Container padding={false} maxWidth={false}>
-        <Grid container spacing={3} xs={12}>
-          <Grid item xs={16} sm={4} md={4}>
+      <Container className="groupLayoutContainer" padding={false} maxWidth={false}>
+        <Grid container spacing={1} md={24}>
+          <GridItem >
             <GroupList setWorkgroup={setUserSelectedWorkgroup} workgroup={userSelectedWorkgroup} workgroups={allWorkgroups}/>
             <span>View availability for: {userSelectedWorkgroup}</span>
             <CheckList coll="user" field="firstname" shouldCrossOut={false} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4}>
-            <Calendar />
+          </GridItem>
+          <GridItem className="calendarGrid" xs={12} sm={1} md={1} style={{flexGrow: "1"}}>
+            <div className="row calendarContainer">
+              <Calendar />
+            </div>
             <span>To-do:</span>
             {/* The checklist below currently pulls from workgroup collection until I can figure out how to pull from a workgroup's checklist collection */}
             <CheckList coll="workgroup" field="name" shouldCrossOut={true} />
-          </Grid>
-          <Grid item xs={12} sm={4} md={4}>
+          </GridItem>
+          <GridItem>
             <span>This will be buttons</span>
             <Chatroom />
-          </Grid>
+          </GridItem>
         </Grid>
       </Container>
+      <style jsx>{`
+      .groupLayoutContainer {
+        height: 100%;
+      }
+
+
+
+      .calendarGrid {
+        overflow: clip;
+      }
+      .calendarContainer {
+        overflow: scroll;
+        height: 70vh;
+      }
+      `}</style>
     </>
   );
 }
