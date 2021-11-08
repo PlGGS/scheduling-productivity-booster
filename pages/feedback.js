@@ -64,7 +64,7 @@ const Feedback = (props) => {
                     <div className="dropdown">
                       <Dropdown
                         placeholder="Select a badge"
-                        className={index}
+                        key={index}
                         options={["Scribe", "Leader", "Mediator", "Creative", "Positive"]}
                         value=""
                         onChange={(value) => console.log("change!", value)}
