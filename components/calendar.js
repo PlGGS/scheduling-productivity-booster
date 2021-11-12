@@ -181,10 +181,11 @@ class Calendar extends Component {
 
   render() {
     return (
-      <NoSSR>
-        <div className="row classes.calendar">
-          <React.Fragment>
-            {/* <div style={{ paddingTop: "10px" }}>
+      <>
+        <div className="row calendar">
+          <NoSSR>
+            <React.Fragment>
+              {/* <div style={{ paddingTop: "10px" }}>
               <label>{constants.CALENDAR_INTERVAL_LENGTH}</label>
               <Select
                 defaultValue={this.state.slotStep}
@@ -197,33 +198,34 @@ class Calendar extends Component {
                 <Option value="4">60 mins</Option>
               </Select>
             </div> */}
-            <DragAndDropCalendar
-              selectable
-              resizable
-              events={this.state.events}
-              step={parseInt(this.state.slotStep) * 15}
-              timeslots={4}
-              localizer={localize}
-              defaultView="week"
-              views={["week", "day", "month"]}
-              defaultDate={moment().toDate()}
-              onEventDrop={this.moveEvent}
-              onEventResize={this.resizeEvent}
-              onSelectSlot={this.newEvent}
-              components={{
-                event: this.Event,
-              }}
-              eventPropGetter={Calendar.eventStyleGetter}
-            />
-          </React.Fragment>
+              <DragAndDropCalendar
+                selectable
+                resizable
+                events={this.state.events}
+                step={parseInt(this.state.slotStep) * 15}
+                timeslots={4}
+                localizer={localize}
+                defaultView="week"
+                views={["week", "day", "month"]}
+                defaultDate={moment().toDate()}
+                onEventDrop={this.moveEvent}
+                onEventResize={this.resizeEvent}
+                onSelectSlot={this.newEvent}
+                components={{
+                  event: this.Event,
+                }}
+                eventPropGetter={Calendar.eventStyleGetter}
+              />
+            </React.Fragment>
+          </NoSSR>
         </div>
         <style jsx>{`
-          calendar {
+          .calendar {
             overflow-y: scroll;
-            height: 82vh;
+            height: 100%;
           }
         `}</style>
-      </NoSSR>
+      </>
     );
   }
 }

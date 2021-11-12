@@ -64,7 +64,7 @@ function ChatRoom() {
 
   return (
     <>
-      <div style={{ height: "69.1vh", "overflow-y": "scroll" }}>
+      <div style={{ height: "83.2vh", "overflow-y": "scroll" }}>
         <main>
           {messages &&
             //chat order fixed. > sooner on the bottom, < sooner on the top
@@ -105,11 +105,11 @@ function ChatRoom() {
         }
         .chatInput {
           height: 30px;
-          width: 154%;
+          width: 135.5%;
         }
         .chatButton {
           height: 28px;
-          transform: translate(77px, 0px);
+          transform: translate(55px, 0px);
         }
       `}</style>
     </>
