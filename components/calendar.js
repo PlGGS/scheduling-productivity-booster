@@ -199,6 +199,7 @@ class Calendar extends Component {
               </Select>
             </div> */}
               <DragAndDropCalendar
+                style={{ paddingRight: "0px" }}
                 selectable
                 resizable
                 events={this.state.events}

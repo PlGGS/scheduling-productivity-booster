@@ -64,7 +64,7 @@ function ChatRoom() {
 
   return (
     <>
-      <div style={{ height: "83.2vh", "overflow-y": "scroll" }}>
+      <div style={{ height: "84vh", "overflow-y": "scroll" }}>
         <main>
           {messages &&
             //chat order fixed. > sooner on the bottom, < sooner on the top
@@ -105,11 +105,11 @@ function ChatRoom() {
         }
         .chatInput {
           height: 30px;
-          width: 135.5%;
+          width: 136%;
         }
         .chatButton {
           height: 28px;
-          transform: translate(55px, 0px);
+          transform: translate(56px, 0px);
         }
       `}</style>
     </>
@@ -143,7 +143,8 @@ function ChatMessage(props) {
       </table>
       <style jsx>{`
         .message img {
-          width: 50px;
+          width: 40px;
+          transform: translate(0px, -6px);
           border-radius: 50%;
         }
       `}</style>

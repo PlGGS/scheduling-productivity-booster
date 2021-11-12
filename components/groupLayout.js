@@ -19,23 +19,6 @@ import Chatroom from "./chatroom";
 import GroupList from "./groupList";
 import GroupButtons from "./groupButtons";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(1),
-  },
-}));
-
-function GridItem(props) {
-  return (
-    // From 0 to 600px wide (smart-phones), I take up 12 columns, or the whole device width!
-    // From 600-690px wide (tablets), I take up 6 out of 12 columns, so 2 columns fit the screen.
-    // From 960px wide and above, I take up 25% of the device (3/12), so 4 columns fit the screen.
-    <Grid item xs={16} sm={8} md={4}>
-      <Paper className={useStyles().paper}>{props.children}</Paper>
-    </Grid>
-  );
-}
-
 function GroupLayout() {
   const [allWorkgroups, setAllWorkgroups] = useState([
     { name: "Loading...", id: "initial" },
@@ -152,14 +135,14 @@ function GroupLayout() {
             </Paper>
           </Grid>
           <Grid item xs={12} sm={10} md={8}>
-            <Paper className={useStyles().paper}>
+            <Paper>
               <div className="sectionContainer">
                 <Calendar />
               </div>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={12} md={2}>
-            <Paper className={useStyles().paper}>
+            <Paper>
               <div className="sectionContainer">
                 <GroupButtons />
                 <Chatroom />
@@ -176,10 +159,10 @@ function GroupLayout() {
           overflow: clip;
         }
         .sectionContainer {
-          height: 90.99vh;
+          height: 91vh;
         }
         .wrapper {
-          height: 71.7vh;
+          height: 71vh;
           // border-style: solid;
           // border-color: red;
           // grid-template-columns: repeat(3, 1fr);
