@@ -144,7 +144,12 @@ function GroupLayout() {
           <Grid item xs={12} sm={12} md={2}>
             <Paper>
               <div className="sectionContainer">
-                <GroupButtons />
+                <GroupButtons
+                  setWorkgroup={setUserSelectedWorkgroup}
+                  workgroup={userSelectedWorkgroup}
+                  workgroups={allWorkgroups}
+                  user={currentUser}
+                />
                 <Chatroom />
               </div>
             </Paper>

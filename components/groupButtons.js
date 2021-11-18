@@ -1,4 +1,5 @@
-import { addDoc } from "@firebase/firestore";
+import { doc, updateDoc, addDoc, collection, Timestamp } from "@firebase/firestore";
+import { auth, db, provider } from "../services/firebase";
 import { React, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -13,11 +14,15 @@ function GroupButtons({ ...props }) {
 
   async function createNewGroup() {
     if (newGroupName !== "") {
+      //Add group to workgroups collection with a list of 
+      // users in that group containing the user that just created the group
       await addDoc(collection(db, "workgroup"), {
         name: newGroupName,
         datecreated: Timestamp.now(),
+        members: [props.user]
       });
-      //add current user to group
+      //switch the dashboard to that group
+      props.setWorkgroup(newGroupName);
       setShowNewGroupModal(false);
     }
   }
