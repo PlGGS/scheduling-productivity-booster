@@ -12,6 +12,7 @@ import { db } from "../services/firebase";
 function GroupList({ ...props }) {
   const [sidebar, setSidebar] = useState(false);
   const showSidebar = () => setSidebar(!sidebar);
+  // console.log(props.workgroups);
 
   return (
     <>
@@ -28,15 +29,15 @@ function GroupList({ ...props }) {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
-            {props.workgroups.map((item, index) => {
+            {props.workgroups.map((group, index) => {
               return (
                 <li key={index} className={"text-" + index}>
-                  <Link href="/dashboard" className="menu-item">
-                    <span onClick={() => props.setWorkgroup(item.name)}>
-                      {item.name === props.workgroup ? (
-                        <b>{item.name}</b>
+                  <Link href="/dashboard" className="menu-group">
+                    <span onClick={() => props.setWorkgroup(group.name)}>
+                      {group.name === props.workgroup ? (
+                        <b>{group.name}</b>
                       ) : (
-                        item.name
+                        group.name
                       )}
                     </span>
                   </Link>
