@@ -37,7 +37,7 @@ function CheckList({coll, field, checkAll, shouldCrossOut}) {
         <div className="list-container">
           {items.map((item, index) => (
             <div className="list-item" key={index}>
-              <input value={item[field]} type="checkbox" defaultChecked={checkAll} onChange={handleCheck} />
+              <input className="list-checkbox" value={item[field]} type="checkbox" defaultChecked={checkAll} onChange={handleCheck} />
               <span className={shouldCrossOut ? isChecked(item[field]) : "unchecked-item"}>{item[field]}</span>
             </div>
           ))}
@@ -49,6 +49,9 @@ function CheckList({coll, field, checkAll, shouldCrossOut}) {
         }
         .list-item {
           padding-bottom: 10px;
+        }
+        .list-checkbox {
+          margin-right: 5px;
         }
         .checked-item {
           text-decoration: line-through;

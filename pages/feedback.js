@@ -2,34 +2,20 @@ import React, { useEffect, useRef, useState } from "react";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/analytics";
-import { makeStyles } from "@material-ui/core/styles";
-import styles from "../styles/Home.module.css";
 import {
-  doc,
-  addDoc,
   collection,
   onSnapshot,
-  Timestamp,
 } from "firebase/firestore";
-import { signInWithPopup } from "firebase/auth";
-import { auth, db, provider } from "../services/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import { db } from "../services/firebase";
 import Layout from "../components/layout";
 import GroupLayout from "../components/groupLayout";
 import { Grid, Paper } from "@material-ui/core";
-import { Dropdown, Selection } from "react-dropdown-now";
+import { Dropdown } from "react-dropdown-now";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    padding: theme.spacing(1),
-    textAlign: "center",
-  },
-}));
 
 const Feedback = (props) => {
   const [allUsers, setAllUsers] = useState([
-    { name: "Loading...", id: "initial" },
+    { name: "Loading...", photoURL: "", id: "initial" },
   ]);
 
   useEffect(() => {
@@ -57,15 +43,20 @@ const Feedback = (props) => {
             <Grid key={user.firstname} item xs={12} sm={2} md={3}>
               <div className="gridItem">
                 <Paper key={user.firstname}>
-                  <h2 className="username">
-                    {user.firstname} {user.lastname}
-                  </h2>
+                  <img className="photo" src={user.photoURL} width="180em" height="180em" />
+                  <h4 className="username">{user.displayname}</h4>
                   <div className="dropdownContainer">
                     <div className="dropdown">
                       <Dropdown
                         placeholder="Select a badge"
                         key={user.firstname}
-                        options={["Scribe", "Leader", "Mediator", "Creative", "Positive"]}
+                        options={[
+                          "Scribe",
+                          "Leader",
+                          "Mediator",
+                          "Creative",
+                          "Positive",
+                        ]}
                         value=""
                         onChange={(value) => console.log("change!", value)}
                         onSelect={(value) => console.log("selected!", value)} // always fires once a selection happens even if there is no change
@@ -93,10 +84,12 @@ const Feedback = (props) => {
           padding-top: 10%;
           padding-bottom: 10%;
         }
+        .photo {
+          padding: 10%;
+          border-radius: 50%;
+        }
         .username {
-          padding-left: 50px;
-          padding-right: 50px;
-          padding-top: 10%;
+          width: 10em;
         }
         .dropdownContainer {
           display: flex;
@@ -107,11 +100,10 @@ const Feedback = (props) => {
         .dropdown {
           font-size: 14pt;
           width: 75%;
-          border:1px solid #000;
+          border: 1px solid #000;
         }
         .dropdown-control {
           font-weight: bold;
-
         }
       `}</style>
     </>

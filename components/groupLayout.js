@@ -51,53 +51,54 @@ function GroupLayout() {
   //4. if they're added to a workgroup or they create a new workgroup, add their userid and the new workgroup groupid to the membership collection
 
   useEffect(() => {
-    onSnapshot(collection(db, "workgroup"), (snapshot) => {
-      setAllWorkgroups(
-        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      ),
-        setUserSelectedWorkgroup(snapshot.docs[0].data().name);
-    }),
-      onSnapshot(collection(db, "user"), (snapshot) => {
-        setAllUsers(
-          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-        );
-        // ,
-        // setCurrentUser(snapshot.docs.map((doc) =>  {
-        //   if ()
-        //   ({ ...doc.data(), id: doc.id }))
-        // })
-      }),
-      onSnapshot(collection(db, "membership"), (snapshot) => {
-        // setUserWorkgroups(snapshot.docs.map((doc) => {
-        //   if (doc.data().userid === currentuserid)
-        //     return ({ ...doc.data(), id: doc.id });
-        // }))
-      });
-    // ,
-    // auth.onAuthStateChanged((user) => {
-    //     if (user !== null) {
-    //       setUser("Hello, " + user.displayName);
-    //       setButtonText("Logout")
-    //     }
-    //   }
-    // )
-  }, []);
-
-  useEffect(() => {
     if (uid !== "") {
       setDoc(doc(db, "user", uid), {
         displayname: displayName,
         datecreated: Timestamp.now(),
         isadmin: false,
+        photoURL: photoURL
       }),
         setCurrentUser({
           displayname: displayName,
           datecreated: Timestamp.now(),
           isadmin: false,
           uid: uid,
+          photoURL: photoURL
         });
     }
   }, [uid]);
+
+  useEffect(() => {
+    onSnapshot(collection(db, "workgroup"), (snapshot) => {
+      setAllWorkgroups(
+        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      ),
+      setUserSelectedWorkgroup(snapshot.docs[0].data().name);
+    }),
+    onSnapshot(collection(db, "user"), (snapshot) => {
+      setAllUsers(
+        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      )
+    })
+  }, []);
+
+  useEffect(() => {
+    if (currentUser.uid) {
+      onSnapshot(collection(db, "workgroup"), (snapshot) => {
+        let workGroups = [];
+
+        for (let doc of snapshot.docs) {
+          for (let member of doc.data().members) {
+            if (member.uid === currentUser.uid) {
+              workGroups.push(doc.data());
+            }
+          }
+        }
+
+        setUserWorkgroups(workGroups);
+      });
+    }
+  }, [currentUser]);
 
   return (
     <>
@@ -115,12 +116,12 @@ function GroupLayout() {
                 <GroupList
                   setWorkgroup={setUserSelectedWorkgroup}
                   workgroup={userSelectedWorkgroup}
-                  workgroups={allWorkgroups}
+                  workgroups={userWorkgroups}
                 />
                 <span>View availability for: {userSelectedWorkgroup}</span>
                 <CheckList
                   coll="user"
-                  field="firstname"
+                  field="displayname"
                   checkAll={true}
                   shouldCrossOut={false}
                 />
@@ -147,7 +148,7 @@ function GroupLayout() {
                 <GroupButtons
                   setWorkgroup={setUserSelectedWorkgroup}
                   workgroup={userSelectedWorkgroup}
-                  workgroups={allWorkgroups}
+                  workgroups={userWorkgroups}
                   user={currentUser}
                 />
                 <Chatroom />
