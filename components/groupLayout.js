@@ -56,12 +56,14 @@ function GroupLayout() {
         displayname: displayName,
         datecreated: Timestamp.now(),
         isadmin: false,
+        photoURL: photoURL
       }),
         setCurrentUser({
           displayname: displayName,
           datecreated: Timestamp.now(),
           isadmin: false,
           uid: uid,
+          photoURL: photoURL
         });
     }
   }, [uid]);
@@ -71,45 +73,31 @@ function GroupLayout() {
       setAllWorkgroups(
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       ),
-        setUserSelectedWorkgroup(snapshot.docs[0].data().name);
+      setUserSelectedWorkgroup(snapshot.docs[0].data().name);
     }),
     onSnapshot(collection(db, "user"), (snapshot) => {
       setAllUsers(
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-      // ,
-      // setCurrentUser(snapshot.docs.map((doc) =>  {
-      //   if ()
-      //   ({ ...doc.data(), id: doc.id }))
-      // })
-    }),
-    onSnapshot(collection(db, "workgroup"), (snapshot) => {
-      // const workGroups[] = snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      // setUserWorkgroups(console.log(snapshot.docs.map((doc) => {
-
-      //   doc.data().members.map((member) => {
-      //   })
-      setUserWorkgroups(console.log(snapshot.docs.map((doc) => {
-        return doc.data().members.filter((member) => {
-          // if (currentUser.uid) {
-      
-          // }
-          // console.log(`${member.uid} ${currentUser.uid}`)
-          if (member.uid === currentUser.uid) {
-            console.log(doc.data());
-            return doc.data();
-          }
-        })
-      })))
+      )
     })
-    // ,
-    // auth.onAuthStateChanged((user) => {
-    //     if (user !== null) {
-    //       setUser("Hello, " + user.displayName);
-    //       setButtonText("Logout")
-    //     }
-    //   }
-    // )
+  }, []);
+
+  useEffect(() => {
+    if (currentUser.uid) {
+      onSnapshot(collection(db, "workgroup"), (snapshot) => {
+        let workGroups = [];
+
+        for (let doc of snapshot.docs) {
+          for (let member of doc.data().members) {
+            if (member.uid === currentUser.uid) {
+              workGroups.push(doc.data());
+            }
+          }
+        }
+
+        setUserWorkgroups(workGroups);
+      });
+    }
   }, [currentUser]);
 
   return (
@@ -128,12 +116,12 @@ function GroupLayout() {
                 <GroupList
                   setWorkgroup={setUserSelectedWorkgroup}
                   workgroup={userSelectedWorkgroup}
-                  workgroups={allWorkgroups}
+                  workgroups={userWorkgroups}
                 />
                 <span>View availability for: {userSelectedWorkgroup}</span>
                 <CheckList
                   coll="user"
-                  field="firstname"
+                  field="displayname"
                   checkAll={true}
                   shouldCrossOut={false}
                 />
@@ -160,7 +148,7 @@ function GroupLayout() {
                 <GroupButtons
                   setWorkgroup={setUserSelectedWorkgroup}
                   workgroup={userSelectedWorkgroup}
-                  workgroups={allWorkgroups}
+                  workgroups={userWorkgroups}
                   user={currentUser}
                 />
                 <Chatroom />
