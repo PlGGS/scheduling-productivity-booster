@@ -2,18 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/analytics";
-import {
-  collection,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../services/firebase";
 import Layout from "../components/layout";
 import GroupLayout from "../components/groupLayout";
 import { Grid, Paper } from "@material-ui/core";
 import { Dropdown } from "react-dropdown-now";
+import { Button } from "react-bootstrap";
 
-
-const Feedback = (props) => {
+function Feedback({ ...props }) {
   const [allUsers, setAllUsers] = useState([
     { name: "Loading...", photoURL: "", id: "initial" },
   ]);
@@ -23,6 +20,14 @@ const Feedback = (props) => {
       setAllUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     });
   }, []);
+
+  async function applyFeedback() {
+    //check if you gave out all your badges
+    //give one of each badge to each selected peer
+    //provide feedback that feedback was submitted
+    alert("Feedback sent!");
+    //not allow feedback again until you come back to the page?
+  }
 
   return (
     <>
@@ -43,7 +48,12 @@ const Feedback = (props) => {
             <Grid key={user.firstname} item xs={12} sm={2} md={3}>
               <div className="gridItem">
                 <Paper key={user.firstname}>
-                  <img className="photo" src={user.photoURL} width="180em" height="180em" />
+                  <img
+                    className="photo"
+                    src={user.photoURL}
+                    width="180em"
+                    height="180em"
+                  />
                   <h4 className="username">{user.displayname}</h4>
                   <div className="dropdownContainer">
                     <div className="dropdown">
@@ -72,6 +82,11 @@ const Feedback = (props) => {
             </Grid>
           ))}
         </Grid>
+        <div className="applyFeedbackBtn">
+          <Button variant="primary" style={{}} onClick={applyFeedback}>
+            Send Feedback
+          </Button>
+        </div>
       </Layout>
       <style jsx>{`
         .gridItem {
@@ -105,9 +120,20 @@ const Feedback = (props) => {
         .dropdown-control {
           font-weight: bold;
         }
+
+        .applyFeedbackBtn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding-left: 50px;
+          padding-right: 50px;
+          padding-top: 10%;
+          padding-bottom: 10%;
+        }
       `}</style>
     </>
   );
-};
+}
 
 export default Feedback;

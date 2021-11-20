@@ -22,7 +22,7 @@ function GroupButtons({ ...props }) {
       const group = doc(db, "workgroup", newGroupName);
       const docExists = await getDoc(group);
       if (docExists.exists()) {
-        alert("Already exists");
+        alert("Group with that name already exists");
       }
       else {
         await setDoc(doc(db, "workgroup", newGroupName), {
