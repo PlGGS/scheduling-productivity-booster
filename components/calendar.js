@@ -3,7 +3,7 @@ import moment from "moment";
 import NoSSR from "react-no-ssr";
 import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
-import uuid from "uuidv4";
+import * as uuid from 'uuid';
 import { Select } from "antd";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -35,21 +35,10 @@ class Calendar extends Component {
 
   checkAvailability = (newEvent) => {
     const oldEvents = this.state.events;
-    const sameDayEvents = oldEvents.filter(
-      (event) =>
-        moment(event.start).format("YYYY/MM/DD") ===
-        moment(newEvent.start).format("YYYY/MM/DD")
-    );
-    const timeComparison = sameDayEvents.filter(
-      (event) =>
-        newEvent.end > event.start &&
-        newEvent.start < event.end &&
-        event.oldEvent
-    );
+    const sameDayEvents = oldEvents.filter((event) => moment(event.start).format("YYYY/MM/DD") === moment(newEvent.start).format("YYYY/MM/DD"));
+    const timeComparison = sameDayEvents.filter((event) => newEvent.end > event.start && newEvent.start < event.end && event.oldEvent);
 
-    timeComparison.length > 0
-      ? (newEvent.slotAvailable = false)
-      : (newEvent.slotAvailable = true);
+    timeComparison.length > 0 ? (newEvent.slotAvailable = false) : (newEvent.slotAvailable = true);
     return newEvent;
   };
 
@@ -77,12 +66,7 @@ class Calendar extends Component {
   };
 
   newEvent = (event) => {
-    if (moment(event.start).isBefore(moment().toDate())) {
-      alert(constants.Past_DAY_ERROR);
-      return;
-    }
-
-    let newId = uuid();
+    let newId = uuid.v4();
     let hour = {
       id: newId,
       title: "New Event",
@@ -126,9 +110,7 @@ class Calendar extends Component {
   resizeEvent = ({ event, start, end }) => {
     const { events } = this.state;
     const nextEvents = events.map((existingEvent) => {
-      return existingEvent.id === event.id
-        ? this.checkAvailability({ ...existingEvent, start, end })
-        : existingEvent;
+      return existingEvent.id === event.id ? this.checkAvailability({ ...existingEvent, start, end }) : existingEvent;
     });
 
     this.setState({
