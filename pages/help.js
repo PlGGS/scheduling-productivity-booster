@@ -18,9 +18,9 @@ class Index extends React.Component {
               height="480"
               src="https://www.youtube.com/embed/g8m56D6VKKo"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </main>
         </div>
