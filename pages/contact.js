@@ -15,17 +15,7 @@ class Index extends React.Component {
             Contact Us
           </h1>
           <br />
-          <br />
-          <br />
-          <a style={{fontSize: "24pt", textDecoration: 'underline', color: "blue"}} href="mailto:iantoni1@depaul.edu">iantoni1@depaul.edu</a>
-          <br />
           <a style={{fontSize: "24pt", textDecoration: 'underline', color: "blue"}} href="mailto:bboris1@depaul.edu">bboris1@depaul.edu</a>
-          <br />
-          <a style={{fontSize: "24pt", textDecoration: 'underline', color: "blue"}} href="mailto:sirfanul@depaul.edu">sirfanul@depaul.edu</a>
-          <br />
-          <a style={{fontSize: "24pt", textDecoration: 'underline', color: "blue"}} href="mailto:dshargor@depaul.edu">dshargor@depaul.edu</a>
-          <br />
-          <a style={{fontSize: "24pt", textDecoration: 'underline', color: "blue"}} href="mailto:mzhang61@depaul.edu">mzhang61@depaul.edu</a>
         </main>
       </div>
       </Layout>

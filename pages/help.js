@@ -14,7 +14,7 @@ class Index extends React.Component {
             <h1 className={styles.title}>Tutorial Video</h1>
             <br />
             <iframe
-              width="853.3333333333334"
+              width="853"
               height="480"
               src="https://www.youtube.com/embed/g8m56D6VKKo"
               title="YouTube video player"
