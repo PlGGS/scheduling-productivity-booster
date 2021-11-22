@@ -126,10 +126,6 @@ function Feedback({ ...props }) {
           align-items: center;
           justify-content: center;
           text-align: center;
-          padding-left: 50px;
-          padding-right: 50px;
-          padding-top: 10%;
-          padding-bottom: 10%;
         }
       `}</style>
     </>
